@@ -1,0 +1,5 @@
+# Netlify configuration file for automatic directory setup
+[build]
+  base = "frontend"
+  publish = "dist"
+  command = "npm run build"
