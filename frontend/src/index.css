@@ -631,7 +631,7 @@ section {
 }
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.8rem;
   margin-top: 3rem;
 }
@@ -1365,6 +1365,18 @@ footer {
     align-self: center;
   }
   .about-highlights {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .form-row {
     grid-template-columns: 1fr;
   }
 }

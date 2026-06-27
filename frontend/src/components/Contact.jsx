@@ -83,7 +83,7 @@ const Contact = ({ onShowToast }) => {
           </div>
           <div className="fade-in fade-in-delay-2">
             <form className="contact-form" id="contactForm" onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.2rem' }}>
+              <div className="form-row">
                 <div className="form-group">
                   <label>Name</label>
                   <input 
