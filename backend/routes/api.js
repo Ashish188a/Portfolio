@@ -207,7 +207,7 @@ router.delete('/experience/:id', protect, async (req, res) => {
   }
 });
 
-// @desc    Submit contact form
+// @desc    Submit contact form (Direct Email Only - No DB Storage)
 // @route   POST /api/contact
 // @access  Public
 router.post('/contact', async (req, res) => {
@@ -215,57 +215,54 @@ router.post('/contact', async (req, res) => {
   if (!name || !email || !message) {
     return res.status(400).json({ message: 'Name, email, and message are required' });
   }
+
+  // Check if SMTP is configured
+  if (!process.env.EMAIL_USER || process.env.EMAIL_USER === 'your-email@gmail.com') {
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Server mail forwarding is not configured. Please check SMTP settings in .env.' 
+    });
+  }
+
   try {
-    // 1. Save to MongoDB database
-    const msg = new Message({ name, email, subject, message });
-    const savedMsg = await msg.save();
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+      port: Number(process.env.EMAIL_PORT) || 587,
+      secure: process.env.EMAIL_PORT === '465',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-    // 2. Forward email notification using Nodemailer if configured
-    if (process.env.EMAIL_USER && process.env.EMAIL_USER !== 'your-email@gmail.com') {
-      try {
-        const transporter = nodemailer.createTransport({
-          host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-          port: Number(process.env.EMAIL_PORT) || 587,
-          secure: process.env.EMAIL_PORT === '465',
-          auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-          },
-        });
+    const mailOptions = {
+      from: `"${name} via Portfolio" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_TO || 'axess293@gmail.com',
+      replyTo: email,
+      subject: `Portfolio Contact: ${subject || 'No Subject'}`,
+      text: `You have received a new contact message on your portfolio:\n\n` +
+            `Name: ${name}\n` +
+            `Email: ${email}\n` +
+            `Subject: ${subject || 'None'}\n\n` +
+            `Message:\n${message}`,
+      html: `<div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">` +
+            `<h2 style="color: #2563eb; margin-top: 0;">New Portfolio Contact</h2>` +
+            `<p><strong>Name:</strong> ${name}</p>` +
+            `<p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>` +
+            `<p><strong>Subject:</strong> ${subject || 'None'}</p>` +
+            `<div style="margin-top: 15px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #2563eb; white-space: pre-wrap;">` +
+            `${message}` +
+            `</div>` +
+            `</div>`
+    };
 
-        const mailOptions = {
-          from: `"${name} via Portfolio" <${process.env.EMAIL_USER}>`,
-          to: process.env.EMAIL_TO || 'axess293@gmail.com',
-          replyTo: email,
-          subject: `Portfolio Contact: ${subject || 'No Subject'}`,
-          text: `You have received a new contact message on your MERN portfolio:\n\n` +
-                `Name: ${name}\n` +
-                `Email: ${email}\n` +
-                `Subject: ${subject || 'None'}\n\n` +
-                `Message:\n${message}`,
-          html: `<div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">` +
-                `<h2 style="color: #2563eb; margin-top: 0;">New Portfolio Contact</h2>` +
-                `<p><strong>Name:</strong> ${name}</p>` +
-                `<p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>` +
-                `<p><strong>Subject:</strong> ${subject || 'None'}</p>` +
-                `<div style="margin-top: 15px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #2563eb; white-space: pre-wrap;">` +
-                `${message}` +
-                `</div>` +
-                `</div>`
-        };
+    await transporter.sendMail(mailOptions);
+    console.log('[MAIL] Notification email forwarded successfully (direct only).');
 
-        await transporter.sendMail(mailOptions);
-        console.log('[MAIL] Notification email forwarded successfully.');
-      } catch (mailError) {
-        console.error('[MAIL] Failed to forward email notification:', mailError.message);
-      }
-    } else {
-      console.log('[MAIL] Email forwarding skipped (Nodemailer config is empty or placeholder).');
-    }
-
-    res.status(201).json({ success: true, message: 'Message sent successfully!', data: savedMsg });
+    res.status(201).json({ success: true, message: 'Message sent successfully to email!' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('[MAIL] Failed to forward email notification:', error.message);
+    res.status(500).json({ success: false, message: 'Failed to send email. Server mailer error.' });
   }
 });
 
