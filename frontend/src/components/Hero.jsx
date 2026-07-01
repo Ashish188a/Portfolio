@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero = ({ projectsCount = 0, skillsCount = 0 }) => {
   return (
@@ -19,8 +20,8 @@ const Hero = ({ projectsCount = 0, skillsCount = 0 }) => {
               Passionate about crafting APIs that power great user experiences.
             </p>
             <div className="hero-btns fade-in fade-in-delay-4">
-              <a href="#contact" className="btn-primary"><i className="fas fa-paper-plane"></i> Hire Me</a>
-              <a href="#projects" className="btn-outline"><i className="fas fa-code"></i> View Work</a>
+              <Link to="/contact" className="btn-primary"><i className="fas fa-paper-plane"></i> Hire Me</Link>
+              <Link to="/projects" className="btn-outline"><i className="fas fa-code"></i> View Work</Link>
             </div>
           </div>
           
