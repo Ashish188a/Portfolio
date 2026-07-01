@@ -38,15 +38,15 @@ const seedData = async () => {
 
     // Seed Skills
     const skills = [
-      { name: 'Java', icon: '☕', percentage: 80, category: 'Languages' },
+      { name: 'GitHub', icon: '🐙', percentage: 85, category: 'General' },
+      { name: 'JavaScript', icon: '⚡', percentage: 80, category: 'Languages' },
+      { name: 'MongoDB', icon: '🍃', percentage: 80, category: 'Databases' },
       { name: 'Python', icon: '🐍', percentage: 85, category: 'Languages' },
+      { name: 'Java', icon: '☕', percentage: 80, category: 'Languages' },
       { name: 'Flask', icon: '🌶️', percentage: 80, category: 'Frameworks' },
-      { name: 'MongoDB', icon: '🍃', percentage: 75, category: 'Databases' },
       { name: 'HTML & CSS', icon: '🌐', percentage: 70, category: 'Frontend' },
-      { name: 'JavaScript', icon: '⚡', percentage: 65, category: 'Frontend' },
       { name: 'DSA', icon: '🧠', percentage: 78, category: 'General' },
       { name: 'REST APIs', icon: '🔗', percentage: 80, category: 'General' },
-      { name: 'Git & GitHub', icon: '🐙', percentage: 72, category: 'General' },
     ];
     await Skill.insertMany(skills);
     console.log('Skills seeded.');
@@ -54,18 +54,33 @@ const seedData = async () => {
     // Seed Projects
     const projects = [
       {
-        title: 'HomeSphere',
-        description: 'A full-featured real estate platform enabling users to browse, list, and manage properties with a secure, scalable backend.',
-        icon: 'fas fa-home',
-        github: '#',
+        title: 'Real-Time Chat App Backend',
+        description: 'A secure backend-driven real-time chat application with robust user authentication, user profile management, and message routing.',
+        icon: 'fas fa-comments',
+        github: 'https://github.com/Ashish188a/Chat_App.git',
         live: '#',
         features: [
-          'JWT-based user authentication & authorization',
-          'Property listing with filters & search',
-          'User dashboard with saved properties',
-          'RESTful API with Flask'
+          'JWT & Cookie-based secure user authentication',
+          'Secure password hashing using bcryptjs',
+          'Media/avatar uploads integration via Cloudinary',
+          'Message exchange database schema with MongoDB & Mongoose',
+          'Modular REST API structure with Express'
         ],
-        techTags: ['Flask', 'MongoDB', 'Python', 'REST API', 'JWT']
+        techTags: ['Node.js', 'Express', 'MongoDB', 'Cloudinary', 'JWT']
+      },
+      {
+        title: 'NFT Market Place DApp',
+        description: 'A decentralized marketplace application (DApp) enabling users to mint, buy, and sell NFTs via smart contracts.',
+        icon: 'fas fa-store',
+        github: 'https://github.com/Ashish188a/NFT.git',
+        live: '#',
+        features: [
+          'Solidity smart contract (SimpleNFT.sol) for minting and ownership',
+          'Decentralized token metadata and blockchain transactions',
+          'Full-stack architecture integrating frontend client to backend server',
+          'Intuitive web interface for viewing and trading digital assets'
+        ],
+        techTags: ['Solidity', 'Web3', 'React', 'Node.js', 'Express', 'Ethereum']
       }
     ];
     await Project.insertMany(projects);
@@ -74,29 +89,41 @@ const seedData = async () => {
     // Seed Experience
     const experiences = [
       {
-        title: 'Backend Developer Intern',
-        company: 'Vital Skills Internship',
-        period: '2024',
+        title: "Bachelor's Degree, Computer Science Engineering",
+        company: "Cambridge Institute of Technology Ranchi",
+        period: "2022 - 2026",
         duties: [
-          'Developed and maintained RESTful APIs using Flask for web applications',
-          'Designed and managed MongoDB database schemas and queries',
-          'Implemented user authentication and authorization with JWT',
-          'Collaborated with frontend team to integrate backend services',
-          'Participated in code reviews and followed best practices for clean, maintainable code',
-          'Debugged and resolved backend issues to improve application performance'
+          "Attended Cambridge University of Technology",
+          "Studied advanced topics in Computer Science Engineering, Software Architecture, and System Design",
+          "Designed and implemented programming projects using JavaScript, Node.js, and MongoDB",
+          "Engaged in collaborative development using GitHub for version control"
         ],
         order: 0
       },
       {
-        title: 'Diploma in Computer Science',
-        company: 'Technical Education Institute',
-        period: 'Completed',
+        title: "Backend Developer Intern",
+        company: "Vital Skills Internship",
+        period: "2024",
         duties: [
-          'Studied core computer science concepts: data structures, algorithms, OS, DBMS',
-          'Built hands-on projects in Java and Python throughout the program',
-          'Developed strong foundations in object-oriented programming'
+          "Developed and maintained RESTful APIs using Flask for web applications",
+          "Designed and managed MongoDB database schemas and queries",
+          "Implemented user authentication and authorization with JWT",
+          "Collaborated with frontend team to integrate backend services",
+          "Participated in code reviews and followed best practices for clean, maintainable code",
+          "Debugged and resolved backend issues to improve application performance"
         ],
         order: 1
+      },
+      {
+        title: "Diploma of Education, Computer Science Engineering",
+        company: "Birla Institute of Technology, Mesra",
+        period: "2017 - 2021",
+        duties: [
+          "Studied core computer science concepts: data structures, algorithms, OS, DBMS",
+          "Built hands-on coding projects in Java and Python throughout the program",
+          "Developed strong foundations in object-oriented programming"
+        ],
+        order: 2
       }
     ];
     await Experience.insertMany(experiences);

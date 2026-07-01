@@ -72,12 +72,12 @@ const Contact = ({ onShowToast }) => {
               <div className="contact-icon"><i className="fas fa-map-marker-alt"></i></div>
               <div>
                 <h4>Location</h4>
-                <p>India 🇮🇳</p>
+                <p>Ranchi, Jharkhand, India 🇮🇳</p>
               </div>
             </div>
             <div className="social-links">
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-btn"><i className="fab fa-github"></i> GitHub</a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-btn"><i className="fab fa-linkedin"></i> LinkedIn</a>
+              <a href="https://www.linkedin.com/in/ashish-kumar-xess-5808172aa" target="_blank" rel="noopener noreferrer" className="social-btn"><i className="fab fa-linkedin"></i> LinkedIn</a>
               <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer" className="social-btn"><i className="fas fa-code"></i> LeetCode</a>
             </div>
           </div>

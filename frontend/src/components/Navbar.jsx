@@ -45,6 +45,7 @@ const Navbar = ({ isAdminPage = false }) => {
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><Link to="/admin" style={{ color: 'var(--accent2)', fontWeight: 'bold' }}>Admin</Link></li>
           </ul>
@@ -73,6 +74,7 @@ const Navbar = ({ isAdminPage = false }) => {
           <a href="#skills" onClick={closeMobile}>Skills</a>
           <a href="#projects" onClick={closeMobile}>Projects</a>
           <a href="#experience" onClick={closeMobile}>Experience</a>
+          <a href="#education" onClick={closeMobile}>Education</a>
           <a href="#contact" onClick={closeMobile}>Contact</a>
           <Link to="/admin" onClick={closeMobile} style={{ color: 'var(--accent2)', fontWeight: 'bold' }}>Admin Panel</Link>
         </div>

@@ -38,8 +38,8 @@ const Hero = ({ projectsCount = 0, skillsCount = 0 }) => {
                   &nbsp;&nbsp;<span class="c-key">def</span> <span class="c-fn">__init__</span>(<span class="c-var">self</span>):<br />
                   &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-var">self</span>.name = <span class="c-str">"Ashish"</span><br />
                   &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-var">self</span>.stack = [<br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Python"</span>, <span class="c-str">"Java"</span>,<br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Flask"</span>, <span class="c-str">"MongoDB"</span><br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"JavaScript"</span>, <span class="c-str">"MongoDB"</span>,<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"GitHub"</span>, <span class="c-str">"Node.js"</span><br />
                   &nbsp;&nbsp;&nbsp;&nbsp;]<br />
                   &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-var">self</span>.status = <span class="c-str">"open_to_work"</span><br />
                   <br />

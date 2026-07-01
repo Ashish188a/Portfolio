@@ -1,15 +1,15 @@
 import React from 'react';
 
 const defaultSkills = [
-  { name: 'Java', icon: '☕', percentage: 80 },
+  { name: 'GitHub', icon: '🐙', percentage: 85 },
+  { name: 'JavaScript', icon: '⚡', percentage: 80 },
+  { name: 'MongoDB', icon: '🍃', percentage: 80 },
   { name: 'Python', icon: '🐍', percentage: 85 },
+  { name: 'Java', icon: '☕', percentage: 80 },
   { name: 'Flask', icon: '🌶️', percentage: 80 },
-  { name: 'MongoDB', icon: '🍃', percentage: 75 },
   { name: 'HTML & CSS', icon: '🌐', percentage: 70 },
-  { name: 'JavaScript', icon: '⚡', percentage: 65 },
   { name: 'DSA', icon: '🧠', percentage: 78 },
   { name: 'REST APIs', icon: '🔗', percentage: 80 },
-  { name: 'Git & GitHub', icon: '🐙', percentage: 72 },
 ];
 
 const Skills = ({ skills = [] }) => {

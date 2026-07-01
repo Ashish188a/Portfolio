@@ -11,10 +11,11 @@ const Footer = () => {
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </nav>
       <div style={{ marginTop: '1rem', fontSize: '0.78rem', color: 'var(--muted)' }}>
-        © 2024 Ashish Kumar Xess · Made with ❤️ and React / MERN
+        © 2026 Ashish Kumar Xess · Made with ❤️ and React / MERN
       </div>
     </footer>
   );
