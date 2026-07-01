@@ -1,23 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+const navItems = [
+  { label: 'Home',       to: '/' },
+  { label: 'About',      to: '/about' },
+  { label: 'Skills',     to: '/skills' },
+  { label: 'Projects',   to: '/projects' },
+  { label: 'Experience', to: '/experience' },
+  { label: 'Education',  to: '/education' },
+  { label: 'Contact',    to: '/contact' },
+];
 
 const Navbar = ({ isAdminPage = false }) => {
   const [isDark, setIsDark] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    // Check initial theme from localStorage or body class
     const isLightMode = document.body.classList.contains('light');
     setIsDark(!isLightMode);
-
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [location.pathname]);
 
   const toggleTheme = () => {
     const newDark = !isDark;
@@ -26,28 +37,36 @@ const Navbar = ({ isAdminPage = false }) => {
     localStorage.setItem('theme', newDark ? 'dark' : 'light');
   };
 
-  const toggleMobileNav = () => {
-    setIsMobileOpen(!isMobileOpen);
-  };
-
-  const closeMobile = () => {
-    setIsMobileOpen(false);
-  };
+  const isActive = (to) =>
+    to === '/'
+      ? location.pathname === '/'
+      : location.pathname.startsWith(to);
 
   return (
     <>
       <nav id="navbar" style={{ boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.3)' : 'none' }}>
-        <Link to="/" className="nav-logo" onClick={closeMobile}>AKX<span>.</span></Link>
-        
+        <Link to="/" className="nav-logo">AKX<span>.</span></Link>
+
         {!isAdminPage ? (
           <ul className="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><Link to="/admin" style={{ color: 'var(--accent2)', fontWeight: 'bold' }}>Admin</Link></li>
+            {navItems.map(({ label, to }) => (
+              <li key={to}>
+                <Link
+                  to={to}
+                  style={{
+                    color: isActive(to) ? 'var(--accent)' : '',
+                    borderBottom: isActive(to) ? '2px solid var(--accent)' : '2px solid transparent',
+                    paddingBottom: '2px',
+                    transition: 'color 0.2s, border-color 0.2s'
+                  }}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link to="/admin" style={{ color: 'var(--accent2)', fontWeight: 'bold' }}>Admin</Link>
+            </li>
           </ul>
         ) : (
           <ul className="nav-links">
@@ -61,7 +80,7 @@ const Navbar = ({ isAdminPage = false }) => {
             <i className={`fas ${isDark ? 'fa-sun' : 'fa-moon'}`} id="themeIcon"></i>
           </button>
           {!isAdminPage && (
-            <button className="hamburger" id="hamburger" onClick={toggleMobileNav}>
+            <button className="hamburger" id="hamburger" onClick={() => setIsMobileOpen(!isMobileOpen)}>
               <i className={`fas ${isMobileOpen ? 'fa-times' : 'fa-bars'}`}></i>
             </button>
           )}
@@ -70,13 +89,16 @@ const Navbar = ({ isAdminPage = false }) => {
 
       {!isAdminPage && (
         <div className={`mobile-nav ${isMobileOpen ? 'open' : ''}`} id="mobileNav">
-          <a href="#about" onClick={closeMobile}>About</a>
-          <a href="#skills" onClick={closeMobile}>Skills</a>
-          <a href="#projects" onClick={closeMobile}>Projects</a>
-          <a href="#experience" onClick={closeMobile}>Experience</a>
-          <a href="#education" onClick={closeMobile}>Education</a>
-          <a href="#contact" onClick={closeMobile}>Contact</a>
-          <Link to="/admin" onClick={closeMobile} style={{ color: 'var(--accent2)', fontWeight: 'bold' }}>Admin Panel</Link>
+          {navItems.map(({ label, to }) => (
+            <Link
+              key={to}
+              to={to}
+              style={{ color: isActive(to) ? 'var(--accent)' : '' }}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link to="/admin" style={{ color: 'var(--accent2)', fontWeight: 'bold' }}>Admin Panel</Link>
         </div>
       )}
     </>
