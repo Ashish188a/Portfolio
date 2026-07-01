@@ -1,5 +1,11 @@
-# Netlify configuration file for automatic directory setup
+# Netlify configuration for Ashish Kumar Xess Portfolio
 [build]
-  base = "frontend"
+  base    = "frontend"
   publish = "dist"
   command = "npm run build"
+
+# React Router SPA — redirect all URLs to index.html
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
